@@ -174,12 +174,12 @@ class BarcodeScannerViewController: UIViewController {
     let captureMetadataOutput = AVCaptureMetadataOutput()
     
     private lazy var xCor: CGFloat! = {
-        return self.isOrientationPortrait ? (screenSize.width - (screenSize.width*0.8))/2 :
-            (screenSize.width - (screenSize.width*0.6))/2
+        return self.isOrientationPortrait ? (screenSize.width - (screenSize.width*0.9))/2 :
+            (screenSize.width - (screenSize.width*0.3))/2
     }()
     private lazy var yCor: CGFloat! = {
-        return self.isOrientationPortrait ? (screenSize.height - (screenSize.width*0.8))/2 :
-            (screenSize.height - (screenSize.height*0.8))/2
+        return self.isOrientationPortrait ? (screenSize.height - (screenSize.width*0.9))/2 :
+            (screenSize.height - (screenSize.height*0.9))/2
     }()
     //Bottom view
     private lazy var bottomView : UIView! = {
@@ -241,10 +241,10 @@ class BarcodeScannerViewController: UIViewController {
     // Init UI components needed
     func initUIComponents(){
         if isOrientationPortrait {
-            screenHeight = (CGFloat)((SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index) ? (screenSize.width * 0.8) : (screenSize.width * 0.5))
+            screenHeight = (CGFloat)((SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index) ? (screenSize.width * 0.5) : (screenSize.width * 0.3))
             
         } else {
-            screenHeight = (CGFloat)((SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index) ? (screenSize.height * 0.6) : (screenSize.height * 0.5))
+            screenHeight = (CGFloat)((SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index) ? (screenSize.height * 0.3) : (screenSize.height * 0.2))
         }
         
         
@@ -272,7 +272,7 @@ class BarcodeScannerViewController: UIViewController {
             }
             // Initialize a AVCaptureMetadataOutput object and set it as the output device to the capture session.
             
-            let captureRectWidth = self.isOrientationPortrait ? (screenSize.width*0.8):(screenSize.height*0.8)
+            let captureRectWidth = self.isOrientationPortrait ? (screenSize.width*0.9):(screenSize.height*0.9)
             
             captureMetadataOutput.rectOfInterest = CGRect(x: xCor, y: yCor, width: captureRectWidth, height: screenHeight)
             if captureSession.outputs.isEmpty {
@@ -305,7 +305,7 @@ class BarcodeScannerViewController: UIViewController {
         //    func drawUIOverlays(){
         let overlayPath = UIBezierPath(rect: view.bounds)
         
-        let transparentPath = UIBezierPath(rect: CGRect(x: xCor, y: yCor, width: self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.8), height: screenHeight))
+        let transparentPath = UIBezierPath(rect: CGRect(x: xCor, y: yCor, width: self.isOrientationPortrait ? (screenSize.width*0.9) : (screenSize.height*0.9), height: screenHeight))
         
         overlayPath.append(transparentPath)
         overlayPath.usesEvenOddFillRule = true
@@ -324,7 +324,7 @@ class BarcodeScannerViewController: UIViewController {
         // Start video capture.
         captureSession.startRunning()
         
-        let scanRect = CGRect(x: xCor, y: yCor, width: self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.8), height: screenHeight)
+        let scanRect = CGRect(x: xCor, y: yCor, width: self.isOrientationPortrait ? (screenSize.width*0.9) : (screenSize.height*0.9), height: screenHeight)
         
         
         let rectOfInterest = videoPreviewLayer?.metadataOutputRectConverted(fromLayerRect: scanRect)
@@ -334,7 +334,7 @@ class BarcodeScannerViewController: UIViewController {
         // Initialize QR Code Frame to highlight the QR code
         qrCodeFrameView = UIView()
         
-        qrCodeFrameView!.frame = CGRect(x: 0, y: 0, width: self.isOrientationPortrait ? (screenSize.width * 0.8) : (screenSize.height * 0.8), height: screenHeight)
+        qrCodeFrameView!.frame = CGRect(x: 0, y: 0, width: self.isOrientationPortrait ? (screenSize.width * 0.9) : (screenSize.height * 0.9), height: screenHeight)
         
         
         if let qrCodeFrameView = qrCodeFrameView {
@@ -522,17 +522,17 @@ class BarcodeScannerViewController: UIViewController {
     private func drawLine() {
         self.view.addSubview(scanLine)
         scanLine.backgroundColor = hexStringToUIColor(hex: SwiftFlutterBarcodeScannerPlugin.lineColor)
-        scanlineRect = CGRect(x: xCor, y: yCor, width:self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.8), height: 2)
+        scanlineRect = CGRect(x: xCor, y: yCor, width:self.isOrientationPortrait ? (screenSize.width*0.9) : (screenSize.height*0.9), height: 2)
         
         scanlineStartY = yCor
         
         var stopY:CGFloat
         
         if SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index {
-            let w = self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.6)
+            let w = self.isOrientationPortrait ? (screenSize.width*0.5) : (screenSize.height*0.3)
             stopY = (yCor + w)
         } else {
-            let w = self.isOrientationPortrait ? (screenSize.width * 0.5) : (screenSize.height * 0.5)
+            let w = self.isOrientationPortrait ? (screenSize.width * 0.2) : (screenSize.height * 0.2)
             stopY = (yCor + w)
         }
         scanlineStopY = stopY
