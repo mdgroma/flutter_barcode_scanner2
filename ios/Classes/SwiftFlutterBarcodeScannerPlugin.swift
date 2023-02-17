@@ -174,12 +174,12 @@ class BarcodeScannerViewController: UIViewController {
     let captureMetadataOutput = AVCaptureMetadataOutput()
     
     private lazy var xCor: CGFloat! = {
-        return self.isOrientationPortrait ? (screenSize.width - (screenSize.width*0.9))/2 :
-            (screenSize.width - (screenSize.width*0.3))/2
+        return self.isOrientationPortrait ? (screenSize.width - (screenSize.width*0.8))/2 :
+            (screenSize.width - (screenSize.width*0.6))/2
     }()
     private lazy var yCor: CGFloat! = {
-        return self.isOrientationPortrait ? (screenSize.height - (screenSize.width*0.9))/2 :
-            (screenSize.height - (screenSize.height*0.9))/2
+        return self.isOrientationPortrait ? (screenSize.height - (screenSize.width*0.8))/2 :
+            (screenSize.height - (screenSize.height*0.8))/2
     }()
     //Bottom view
     private lazy var bottomView : UIView! = {
@@ -529,10 +529,10 @@ class BarcodeScannerViewController: UIViewController {
         var stopY:CGFloat
         
         if SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index {
-            let w = self.isOrientationPortrait ? (screenSize.width*0.5) : (screenSize.height*0.3)
+            let w = self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.6)
             stopY = (yCor + w)
         } else {
-            let w = self.isOrientationPortrait ? (screenSize.width * 0.2) : (screenSize.height * 0.2)
+            let w = self.isOrientationPortrait ? (screenSize.width * 0.5) : (screenSize.height * 0.5)
             stopY = (yCor + w)
         }
         scanlineStopY = stopY
