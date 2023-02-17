@@ -243,7 +243,7 @@ class BarcodeScannerViewController: UIViewController {
         if isOrientationPortrait {
             screenHeight = (CGFloat)((SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index) ? (screenSize.width * 0.5) : (screenSize.width * 0.3))
             
-        } else {
+        } else {// CF
             screenHeight = (CGFloat)((SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index) ? (screenSize.height * 0.3) : (screenSize.height * 0.2))
         }
         
@@ -293,8 +293,8 @@ class BarcodeScannerViewController: UIViewController {
         videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         videoPreviewLayer?.frame = view.layer.bounds
         
-        setVideoPreviewOrientation()
-        //videoPreviewLayer?.connection?.videoOrientation = self.isOrientationPortrait ? AVCaptureVideoOrientation.portrait : AVCaptureVideoOrientation.landscapeRight
+        //setVideoPreviewOrientation()
+        videoPreviewLayer?.connection?.videoOrientation = self.isOrientationPortrait ? AVCaptureVideoOrientation.portrait : AVCaptureVideoOrientation.landscapeRight
         
         self.drawUIOverlays{
         }
@@ -531,8 +531,8 @@ class BarcodeScannerViewController: UIViewController {
         if SwiftFlutterBarcodeScannerPlugin.scanMode == ScanMode.QR.index {
             let w = self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.6)
             stopY = (yCor + w)
-        } else {
-            let w = self.isOrientationPortrait ? (screenSize.width * 0.5) : (screenSize.height * 0.5)
+        } else { // CF
+            let w = screenHeight //self.isOrientationPortrait ? (screenSize.width * 0.2) : (screenSize.height * 0.2)
             stopY = (yCor + w)
         }
         scanlineStopY = stopY
@@ -647,7 +647,7 @@ extension BarcodeScannerViewController{
     func setVideoPreviewOrientation(){
         switch(UIDevice.current.orientation){
         case .unknown:
-            self.videoPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+            self.videoPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
             break
         case .portrait:
             self.videoPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
@@ -668,7 +668,7 @@ extension BarcodeScannerViewController{
             self.videoPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
             break
         @unknown default:
-            self.videoPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.portrait
+            self.videoPreviewLayer?.connection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
             break
         }
     }
