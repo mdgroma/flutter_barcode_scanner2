@@ -532,7 +532,7 @@ class BarcodeScannerViewController: UIViewController {
             let w = self.isOrientationPortrait ? (screenSize.width*0.8) : (screenSize.height*0.6)
             stopY = (yCor + w)
         } else { // CF
-            let w = screenHeight //self.isOrientationPortrait ? (screenSize.width * 0.2) : (screenSize.height * 0.2)
+            let w = screenHeight/2 //self.isOrientationPortrait ? (screenSize.width * 0.2) : (screenSize.height * 0.2)
             stopY = (yCor + w)
         }
         scanlineStopY = stopY
