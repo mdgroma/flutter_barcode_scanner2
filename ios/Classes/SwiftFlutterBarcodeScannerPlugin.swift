@@ -161,6 +161,13 @@ class BarcodeScannerViewController: UIViewController {
     var screenHeight:CGFloat = 0
     let captureMetadataOutput = AVCaptureMetadataOutput()
     
+    if (UIDevice.current.userInterfaceIdiom == .pad){
+        isOrientationPortrait = false
+    }
+    else{
+        isOrientationPortrait = true
+    }
+    
     private lazy var xCor: CGFloat! = {
         return self.isOrientationPortrait ? (screenSize.width - (screenSize.width*0.8))/2 :
             (screenSize.width - (screenSize.width*0.6))/2
