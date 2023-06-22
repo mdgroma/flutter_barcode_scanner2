@@ -592,6 +592,8 @@ extension BarcodeScannerViewController: AVCaptureMetadataOutputObjectsDelegate {
 }
 
 // Handle auto rotation
+//MDG
+/*
 extension BarcodeScannerViewController{
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
@@ -712,3 +714,5 @@ func hexStringToUIColor (hex:String) -> UIColor {
         alpha: aValue
     )
 }
+END MDG
+ */
